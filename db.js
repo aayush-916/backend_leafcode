@@ -1,17 +1,20 @@
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./database.db'); // Persistent storage in a file
+const mysql = require('mysql2');
 
-db.serialize(() => {
-    db.run(`
-        CREATE TABLE IF NOT EXISTS messages (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT,
-            number TEXT,
-            email TEXT,
-            message TEXT,
-            date TEXT
-        )
-    `);
+// MySQL Database connection
+const db = mysql.createConnection({
+    host: 'sql12.freesqldatabase.com', 
+    user: 'sql12756378',
+    Port: 3306,  
+    password: 'npXzapDTQr',      
+    database: 'sql12756378' 
+});
+
+db.connect((err) => {
+    if (err) {
+        console.error('Database connection failed:', err);
+        return;
+    }
+    console.log('Connected to the MySQL database.');
 });
 
 module.exports = db;
